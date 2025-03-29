@@ -3,6 +3,7 @@ import asyncpg
 from .db.init_db import lifespan,get_db_connection
 from .auth.middleware import AuthMiddleware
 from .auth.routes import router as auth_routes
+from .projects.routes import router as project_routes
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI(lifespan=lifespan,docs_url="/docs_swagger")
@@ -15,6 +16,7 @@ app.add_middleware(
 )
 app.add_middleware(AuthMiddleware)
 app.include_router(auth_routes,prefix="/auth")
+app.include_router(project_routes,prefix="/projects")
 
 @app.get("/")
 async def root(db: asyncpg.Connection = Depends(get_db_connection)):
