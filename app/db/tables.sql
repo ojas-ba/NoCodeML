@@ -4,5 +4,23 @@ CREATE TABLE IF NOT EXISTS Users (
     first_name VARCHAR(50) NOT NULL,
     last_name VARCHAR(50) NOT NULL,
     password VARCHAR(1000) NOT NULL,
+    date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     secret_key INT CHECK (secret_key BETWEEN 1000 AND 9999) NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS Projects(
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    description TEXT NOT NULL,
+    date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    user_id INT NOT NULL REFERENCES Users(id)
+);
+
+CREATE TABLE IF NOT EXISTS Datasets(
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    project_id INT NOT NULL REFERENCES Projects(id),
+    user_id INT NOT NULL REFERENCES Users(id)
+);
+

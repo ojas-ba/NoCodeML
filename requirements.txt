@@ -6,3 +6,8 @@ pandas
 numpy
 passlib[bcrypt]
 pyjwt
+python-multipart
+pytest
+pytest-asyncio
+databases
+httpx

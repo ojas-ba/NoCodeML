@@ -33,4 +33,5 @@ async def lifespan(app: FastAPI):
 async def get_db_connection():
     """Dependency to get a connection from the pool."""
     async with db_pool.acquire() as conn:
-        yield conn
+        async with conn.transaction(): # Makes sure Atomicity is maintained. Reduces unnecssary pain. 
+            yield conn

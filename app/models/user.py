@@ -11,3 +11,7 @@ class UserLogin(BaseModel):
     email: EmailStr
     password: str = Field(...,min_length=8,max_length=50)
     
+class User(BaseModel):
+    id: StrictInt = Field(...,gt=0,lt=10000)
+    email: EmailStr
+    

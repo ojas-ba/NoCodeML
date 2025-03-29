@@ -2,7 +2,6 @@
 from fastapi import Request, HTTPException
 from starlette.middleware.base import BaseHTTPMiddleware
 import jwt
-import os
 
 SECRET_KEY = "NOCODEML_AGILE"
 ALGORITHM = "HS256"
@@ -15,7 +14,6 @@ class AuthMiddleware(BaseHTTPMiddleware):
             return await call_next(request)
 
         token = request.cookies.get("access_token")
-        print(token)
         if not token:
             raise HTTPException(status_code=401, detail="Missing token")
         try:

@@ -10,6 +10,7 @@ services:
       - postgres
     volumes:
       - .:/app
+      - dataset_files:/app/dataset_files
   
   postgres:
     image: postgres:latest
@@ -23,5 +24,6 @@ services:
     
 volumes:
   postgres_data:
+  dataset_files:
     
     
