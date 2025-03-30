@@ -6,7 +6,7 @@ import asyncpg
 import os
 
 # First we need to have a upload directory to save the files.
-UPLOAD_DIR = "./uploads"
+UPLOAD_DIR = "./datasets"
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
 # Always make sure that the project belongs to the user who is creating it.
