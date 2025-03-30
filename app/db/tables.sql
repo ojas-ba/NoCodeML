@@ -16,11 +16,20 @@ CREATE TABLE IF NOT EXISTS Projects(
     user_id INT NOT NULL REFERENCES Users(id)
 );
 
+CREATE TABLE IF NOT EXISTS Files(
+    id SERIAL PRIMARY KEY,
+    file_path VARCHAR(255) NOT NULL,
+    user_id INT NOT NULL REFERENCES Users(id)
+);
+
 CREATE TABLE IF NOT EXISTS Datasets(
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
+    description TEXT NOT NULL,
     date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     project_id INT NOT NULL REFERENCES Projects(id),
-    user_id INT NOT NULL REFERENCES Users(id)
+    user_id INT NOT NULL REFERENCES Users(id),
+    file_id INT NOT NULL REFERENCES Files(id)
 );
+
 

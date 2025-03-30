@@ -22,4 +22,4 @@ app.include_router(project_routes,prefix="/projects")
 async def root(db: asyncpg.Connection = Depends(get_db_connection)):
     """Sample endpoint using the database connection."""
     result = await db.fetchval("SELECT 'FastAPI with PostgreSQL Running!'")
-    return {"message": result}
+    return {"message": result,"status": "success"}

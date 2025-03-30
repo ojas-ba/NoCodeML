@@ -8,6 +8,10 @@ ALGORITHM = "HS256"
 
 class AuthMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request: Request, call_next):
+        
+        if request.method == "OPTIONS":
+            return await call_next(request)
+        
         if request.url.path.startswith("/docs_swagger"):
             return await call_next(request)
         if request.url.path in ["/auth/login", "/auth/register", "/auth/me","/auth/logout","/","/openapi.json"]:

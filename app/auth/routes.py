@@ -6,17 +6,29 @@ from .auth_funtions import hashing_password,verify_password,create_access_token,
 
 router  = APIRouter()
 
-@router.get("/me")
-async def read_users_me(request:Request):
+@router.get("/me",status_code=200)
+async def read_users_me(request:Request,db: asyncpg.Connection = Depends(get_db_connection)):
     token = request.cookies.get("access_token")
     if not token:
         raise HTTPException(status_code=401, detail="Not authenticated")
     # Verify the token
     payload = verify_token(token)  # verify_token expects a string (token) it returns email
-    return {"user": payload} 
+    
+    sql_query = """
+    SELECT id FROM Users
+    WHERE email = $1;
+    """
+    try:
+        result = await db.fetchval(sql_query,payload)
+        if result:
+            return {"user":payload,"user_id": result}
+        else:
+            return {"message": "User not found"}
+    except Exception as e:
+        return {"message": str(e)}
     
 
-@router.post("/register")
+@router.post("/register",status_code=201)
 async def register_user(user: UserRegisteration,db:asyncpg.Connection = Depends(get_db_connection)):
     
     sql_query = """
@@ -41,7 +53,7 @@ async def register_user(user: UserRegisteration,db:asyncpg.Connection = Depends(
     except Exception as e:
         return {"message": str(e)}
 
-@router.post("/login")
+@router.post("/login",status_code=200)
 async def login_user(response:Response,user: UserLogin,db:asyncpg.Connection = Depends(get_db_connection)):
     sql_query = """
     SELECT password FROM Users
@@ -63,7 +75,7 @@ async def login_user(response:Response,user: UserLogin,db:asyncpg.Connection = D
         return {"message": str(e)}
     
     
-@router.post("/logout")
+@router.post("/logout",status_code=200)
 async def logout_user(response: Response):
     # Clear the access token cookie
     response.delete_cookie(key="access_token")
