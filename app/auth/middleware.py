@@ -14,7 +14,7 @@ class AuthMiddleware(BaseHTTPMiddleware):
         
         if request.url.path.startswith("/docs_swagger"):
             return await call_next(request)
-        if request.url.path in ["/auth/login", "/auth/register", "/auth/me","/auth/logout","/","/openapi.json"]:
+        if request.url.path in ["/auth/login", "/auth/register", "/auth/me","/auth/logout","/","/openapi.json","/check-celery","/favicon.ico"]:
             return await call_next(request)
 
         token = request.cookies.get("access_token")

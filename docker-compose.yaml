@@ -11,6 +11,9 @@ services:
     volumes:
       - .:/app
       - dataset_files:/app/dataset_files
+      - ./keys/fastapi-storage-key.json:/app/fastapi-storage-key.json
+    environment:
+      - GOOGLE_APPLICATION_CREDENTIALS=/app/fastapi-storage-key.json 
   
   postgres:
     image: postgres:latest
@@ -21,6 +24,28 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+  redis:
+    image: redis:alpine
+    container_name: redis
+    ports:
+      - "6379:6379"
+
+  celery_worker:
+    build: .
+    container_name: celery_worker
+    command: celery -A app.worker.celery_app worker --loglevel=info
+    volumes:
+      - .:/app
+      - ./keys/fastapi-storage-key.json:/app/fastapi-storage-key.json
+    depends_on:
+      - redis
+      - fastapi_app
+      - postgres
+    env_file:
+      - .env
+    environment:
+      - GOOGLE_APPLICATION_CREDENTIALS=/app/fastapi-storage-key.json 
+
     
 volumes:
   postgres_data:
