@@ -31,7 +31,10 @@ def verify_token(token:str):
         return "Expired Token"
     except jwt.InvalidTokenError:
         return "Invalid Token"
-    
+
+def hello_world():
+    return "Hello"
+
 """
 Notes:
 - The payload is a dictionary that contains the user's email and the expiration time of the token.
