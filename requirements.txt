@@ -20,7 +20,6 @@ seaborn
 google-cloud-aiplatform
 celery[redis]
 scikit-learn
-sklearn
 scipy
 xgboost
 lightgbm
