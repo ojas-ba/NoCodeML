@@ -1,13 +1,26 @@
-FROM python:latest
+FROM python:3.10
+
+# 1. Install OS‑level build deps (for PyYAML and any other C‑exts)
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends \
+      build-essential \
+      libyaml-dev \
+ && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
-# Copy only requirements first to leverage Docker cache
+# 2. Upgrade pip/setuptools/wheel and pin Cython < 3.0
+#    so that PyYAML 5.x can build cleanly
+RUN pip install --no-cache-dir --upgrade pip setuptools wheel \
+ && pip install --no-cache-dir "cython<3.0.0"
+
+# 3. Copy only your requirements (to leverage Docker cache)
 COPY requirements.txt .  
 
-RUN pip install  -r requirements.txt
+# 4. Install Python deps WITHOUT isolation, so it reuses our pinned Cython
+RUN pip install --no-cache-dir --no-build-isolation -r requirements.txt
 
-# Copy the rest of the application after installing dependencies
+# 5. Bring in the rest of your code
 COPY app/ .  
 
 EXPOSE 8000

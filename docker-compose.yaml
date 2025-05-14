@@ -1,6 +1,7 @@
 services:
   fastapi_app:
     build: .
+    image: nocodeml/backend:dev
     container_name: fastapi_app
     ports:
       - "8000:8000"
@@ -30,10 +31,10 @@ services:
     ports:
       - "6379:6379"
 
-  celery_worker:
-    build: .
+  celery_worker_train:
+    image: nocodeml/backend:dev
     container_name: celery_worker
-    command: celery -A app.worker.celery_app worker --loglevel=info
+    command: celery -A app.worker.celery_app worker --loglevel=info -Q train --concurrency=4
     volumes:
       - .:/app
       - ./keys/fastapi-storage-key.json:/app/fastapi-storage-key.json
@@ -44,11 +45,26 @@ services:
     env_file:
       - .env
     environment:
-      - GOOGLE_APPLICATION_CREDENTIALS=/app/fastapi-storage-key.json 
+      - GOOGLE_APPLICATION_CREDENTIALS=/app/fastapi-storage-key.json
 
-    
+  celery_worker_plot:
+    image: nocodeml/backend:dev
+    container_name: celery_worker_plot
+    command: celery -A app.worker.celery_app worker --loglevel=info -Q plot --concurrency=2
+    volumes:
+      - .:/app
+      - ./keys/fastapi-storage-key.json:/app/fastapi-storage-key.json
+    depends_on:
+      - redis
+      - fastapi_app
+      - postgres
+    env_file:
+      - .env
+    environment:
+      - GOOGLE_APPLICATION_CREDENTIALS=/app/fastapi-storage-key.json
+
 volumes:
   postgres_data:
   dataset_files:
-    
-    
+
+

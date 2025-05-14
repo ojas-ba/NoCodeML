@@ -2,7 +2,7 @@ import re
 from fastapi import APIRouter, Depends, File, Form, UploadFile, Query
 from pydantic import BaseModel
 
-from ..processing_and_training.routes import get_file_url
+from ..train.routes import get_file_url
 from ..models.projects import project,Datasets
 from ..db.init_db import get_db_connection
 from ..models.user import User

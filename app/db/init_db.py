@@ -2,6 +2,8 @@ from fastapi import FastAPI, Depends
 import asyncpg
 import os
 from contextlib import asynccontextmanager
+import psycopg
+import os
 
 DATABASE_URL = os.getenv("DATABASE_URL")
 
@@ -35,3 +37,7 @@ async def get_db_connection():
     async with db_pool.acquire() as conn:
         async with conn.transaction(): # Makes sure Atomicity is maintained. Reduces unnecssary pain. 
             yield conn
+
+def get_sync_db_connection():
+    conn = psycopg.connect(DATABASE_URL)
+    return conn
