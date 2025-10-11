@@ -1,0 +1,44 @@
+# Core Framework
+fastapi
+uvicorn[standard]
+starlette
+
+# Database
+SQLAlchemy[asyncio]
+psycopg[binary]
+alembic
+
+# Configuration & Validation
+pydantic
+pydantic-settings
+email-validator
+
+# Authentication
+python-jose[cryptography]
+passlib[bcrypt]
+python-multipart
+
+# Task Queue
+celery
+redis
+kombu
+vine
+
+# Data Processing
+pandas
+numpy
+openpyxl
+pyarrow
+plotly
+
+# Machine Learning
+scikit-learn
+xgboost
+lightgbm
+joblib
+imbalanced-learn
+autoclean
+
+# Utilities
+python-dateutil
+pytz

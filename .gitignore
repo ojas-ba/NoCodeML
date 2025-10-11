@@ -1,0 +1,352 @@
+# ============================================
+# NoCodeML Platform - Git Ignore Configuration
+# ============================================
+
+# ============================================
+# Documentation and MD Files (Keep only README.md)
+# ============================================
+# Exclude all documentation folders
+docs/
+Backend/docs/
+Frontend/docs/
+Dummy/docs/
+
+# Exclude Frontend documentation folder specifically
+Frontend/docs/**
+
+# Exclude all markdown files except root README.md
+*.md
+!README.md
+# Re-exclude README.md in subdirectories
+Backend/README.md
+Frontend/README.md
+Dummy/README.md
+
+# Keep important files
+!LICENSE
+
+# ============================================
+# Python / Backend
+# ============================================
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+
+# Translations
+*.mo
+*.pot
+
+# Django stuff:
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# Flask stuff:
+instance/
+.webassets-cache
+
+# Scrapy stuff:
+.scrapy
+
+# Sphinx documentation
+docs/_build/
+
+# PyBuilder
+target/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
+
+# pyenv
+.python-version
+
+# pipenv
+Pipfile.lock
+
+# PEP 582
+__pypackages__/
+
+# Celery stuff
+celerybeat-schedule
+celerybeat.pid
+
+# SageMath parsed files
+*.sage.py
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Keep example env files
+!.env.example
+!env.example
+
+# Spyder project settings
+.spyderproject
+.spyproject
+
+# Rope project settings
+.ropeproject
+
+# mkdocs documentation
+/site
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# ============================================
+# Node.js / Frontend
+# ============================================
+# Dependencies
+node_modules/
+jspm_packages/
+
+# Package manager files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+pnpm-debug.log*
+
+# Build outputs
+dist/
+dist-ssr/
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Bun
+.bun/
+
+# ============================================
+# Docker
+# ============================================
+# Docker volumes and data
+docker-data/
+postgres-data/
+redis-data/
+
+# ============================================
+# Database
+# ============================================
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Alembic
+# Keep versions folder but ignore specific migration files if needed
+# alembic/versions/*.py
+
+# ============================================
+# ML Models and Data
+# ============================================
+# Uploaded datasets
+uploads/
+Backend/uploads/
+app/uploads/
+
+# Trained models
+models/
+*.pkl
+*.h5
+*.pt
+*.pth
+*.ckpt
+*.joblib
+*.model
+
+# Large data files
+*.csv
+*.xlsx
+*.xls
+*.parquet
+*.json
+!package.json
+!package-lock.json
+!tsconfig.json
+!tsconfig.*.json
+!components.json
+!bun.lockb
+
+# ============================================
+# Operating System
+# ============================================
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# ============================================
+# IDEs and Editors
+# ============================================
+# VSCode
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# JetBrains IDEs
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+[._]s[a-rt-v][a-z]
+[._]ss[a-gi-z]
+[._]sw[a-p]
+Session.vim
+Sessionx.vim
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+
+# ============================================
+# Temporary Files
+# ============================================
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+*~.nib
+*.log
+
+# Backup and old files
+*_OLD.tsx
+*_OLD.ts
+*_OLD.jsx
+*_OLD.js
+*_BACKUP.tsx
+*_BACKUP.ts
+*_BACKUP.jsx
+*_BACKUP.js
+*_OLD_BACKUP.tsx
+*_OLD_BACKUP.ts
+
+# ============================================
+# Project Specific
+# ============================================
+# Exclude dummy folder
+Dummy/
+
+# Exclude zip files and PDFs
+*.zip
+*.pdf
+
+# Test files
+test_*.json
+*_test.json
+
+# Feature lists and phase reports
+COMPLETE_FEATURES_LIST.md
+FEATURES_LIST.md
+PHASE*.md
+DOCUMENTATION_CLEANUP_REPORT.md
+README_OLD.md
+
+# Screenshots - Allow folder but initially ignore images (add them manually)
+# You can comment out these lines after adding your screenshots
+# screenshots/*.png
+# screenshots/*.jpg
+# screenshots/*.jpeg
+# But always keep the README and .gitkeep
+!screenshots/README.md
+!screenshots/.gitkeep

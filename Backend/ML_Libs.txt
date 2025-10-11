@@ -1,0 +1,6 @@
+# --- Machine Learning Toolkit ---
+pandas                     # For data manipulation and analysis
+scikit-learn               # Core ML library for preprocessing, metrics, and baseline models
+xgboost                    # High-performance gradient boosting library
+lightgbm                   # High-performance, fast gradient boosting library
+joblib                     # For saving and loading trained models

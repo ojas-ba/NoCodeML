@@ -1,0 +1,80 @@
+# Auto detect text files and normalize line endings to LF
+* text=auto
+
+# Python files
+*.py text eol=lf
+*.pyx text eol=lf
+*.pyd binary
+*.db binary
+
+# JavaScript/TypeScript files
+*.js text eol=lf
+*.jsx text eol=lf
+*.ts text eol=lf
+*.tsx text eol=lf
+*.json text eol=lf
+
+# Web files
+*.html text eol=lf
+*.css text eol=lf
+*.scss text eol=lf
+
+# Shell scripts
+*.sh text eol=lf
+*.bash text eol=lf
+
+# Markdown and docs
+*.md text eol=lf
+*.txt text eol=lf
+
+# Docker files
+Dockerfile text eol=lf
+*.dockerfile text eol=lf
+docker-compose*.yml text eol=lf
+docker-compose*.yaml text eol=lf
+
+# Config files
+*.yml text eol=lf
+*.yaml text eol=lf
+*.toml text eol=lf
+*.ini text eol=lf
+*.cfg text eol=lf
+.env* text eol=lf
+
+# Binary files
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.svg binary
+*.pdf binary
+*.zip binary
+*.gz binary
+*.tar binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.eot binary
+
+# ML model files
+*.pkl binary
+*.h5 binary
+*.pt binary
+*.pth binary
+*.ckpt binary
+*.joblib binary
+*.model binary
+
+# Archives
+*.7z binary
+*.gz binary
+*.jar binary
+*.rar binary
+*.tar binary
+*.zip binary
+
+# Executables
+*.exe binary
+*.pyc binary
+*.pyo binary
