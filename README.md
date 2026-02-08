@@ -14,8 +14,6 @@
 ![NoCodeML Platform Landing Page](./screenshots/landing-page.png)
 *NoCodeML Platform - Your gateway to no-code machine learning*
 
-> 💡 **Add your screenshot:** Place your landing page screenshot in the `screenshots/` folder and name it `landing-page.png`
-
 ---
 
 ## 🎯 What We Built
@@ -28,7 +26,6 @@ NoCodeML is an end-to-end machine learning platform that removes the coding barr
 - Make predictions on new data
 - Compare model performance across different algorithms
 
-**Built for:** Hackathon Submission  
 **Tech Stack:** FastAPI + React + PostgreSQL + Redis + Celery + Docker  
 **Models:** 4 Classification + 4 Regression (Logistic/Linear, Random Forest, XGBoost, LightGBM)
 
