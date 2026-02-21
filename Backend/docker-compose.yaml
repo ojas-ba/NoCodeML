@@ -70,6 +70,7 @@ services:
     container_name: cloudflared
     command: tunnel --no-autoupdate run --token ${CLOUDFLARE_TUNNEL_TOKEN}
     restart: unless-stopped
+    network_mode: "service:fastapi_app"
     depends_on:
       - fastapi_app
 
