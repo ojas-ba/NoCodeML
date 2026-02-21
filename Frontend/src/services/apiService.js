@@ -1,6 +1,26 @@
 import axios from 'axios';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+const _rawApiUrl = import.meta.env.VITE_API_URL;
+
+// Validate that VITE_API_URL is set and has a proper protocol.
+// A missing protocol (e.g. "nocodeml.cloud" instead of "https://nocodeml.cloud")
+// causes axios to treat it as a relative path, silently sending requests to the
+// current page's origin instead of the backend.
+let API_BASE_URL;
+if (_rawApiUrl && /^https?:\/\//i.test(_rawApiUrl.trim())) {
+  API_BASE_URL = _rawApiUrl.trim().replace(/\/$/, ''); // strip trailing slash
+} else {
+  if (import.meta.env.PROD) {
+    // In production, fail loudly so the misconfiguration is obvious.
+    console.error(
+      '[NoCodeML] VITE_API_URL is not set or is missing the protocol (http:// or https://).\n' +
+      `  Current value: "${_rawApiUrl}"\n` +
+      '  Set VITE_API_URL=https://your-backend-url in your Vercel environment variables and redeploy.'
+    );
+  }
+  // Fallback for local development only
+  API_BASE_URL = 'http://localhost:8000';
+}
 
 const api = axios.create({
   baseURL: API_BASE_URL,
