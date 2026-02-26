@@ -544,10 +544,12 @@ class ModelTrainer:
                 )
                 
                 final_hyperparameters = optimization_result['params']
+                applied_rules = optimization_result.get('applied_rules', [])
                 tuning_metadata = optimization_result['metadata']
                 
                 print(f"✅ Optimization complete!")
                 print(f"📊 Optimized parameters: {final_hyperparameters}")
+                print(f"📋 Rules applied: {len(applied_rules)}")
             else:
                 final_hyperparameters = hyperparameters
             
@@ -586,7 +588,8 @@ class ModelTrainer:
                     test_score=test_score,
                     n_samples=len(X_train),
                     n_features=X_train.shape[1] if hasattr(X_train, 'shape') else len(X_train.columns),
-                    model_type=model_type
+                    model_type=model_type,
+                    applied_rules=applied_rules if 'applied_rules' in dir() else None
                 )
             
             # Save model with scaler and label_encoder

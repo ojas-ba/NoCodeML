@@ -398,110 +398,107 @@ const ResultsStep: React.FC<ResultsStepProps> = ({ experimentId, onBack }) => {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
-              {/* Hyperparameter Optimization Results */}
+              {/* Hyperparameter Optimization Results - Transparent Expert System */}
               {model.hyperparameter_tuning?.enabled && (
-                <div className="space-y-3">
-                  {/* Optimization Header */}
-                  <div className="flex items-center gap-2 p-3 bg-gradient-to-r from-primary/10 via-accent/10 to-primary-blue/10 rounded-lg border border-primary/30">
-                    <Sparkles className="w-5 h-5 text-primary" />
-                    <div>
+                <div className="space-y-4">
+                  {/* Expert System Header */}
+                  <div className="p-4 bg-gradient-to-r from-primary/10 via-accent/10 to-primary-blue/10 rounded-lg border border-primary/30">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Sparkles className="w-5 h-5 text-primary" />
                       <div className="font-semibold text-sm bg-gradient-to-r from-primary via-accent to-primary-blue bg-clip-text text-transparent">
-                        Hyperparameters Optimized
-                      </div>
-                      <div className="text-xs text-muted-foreground">
-                        {model.hyperparameter_tuning.method} • {model.hyperparameter_tuning.cv_strategy}
+                        Expert System — Optimization Summary
                       </div>
                     </div>
+                    <p className="text-sm text-muted-foreground">
+                      Our Expert System adjusted your model based on your data's specific characteristics
+                      {model.hyperparameter_tuning.dataset_info && (
+                        <span className="font-medium text-foreground">
+                          {' '}(Size: {model.hyperparameter_tuning.dataset_info.n_samples?.toLocaleString()} samples, Features: {model.hyperparameter_tuning.dataset_info.n_features})
+                        </span>
+                      )}.
+                    </p>
                   </div>
 
-                  {/* Optimization Metrics Grid */}
+                  {/* Summary Metrics */}
                   <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
                     <div className="p-3 bg-card/50 backdrop-blur-sm rounded-lg border border-border hover:border-accent/50 transition-colors">
-                      <div className="text-xs text-muted-foreground">Optimization Trials</div>
-                      <div className="text-lg font-bold text-accent">
-                        {model.hyperparameter_tuning.n_trials}
+                      <div className="text-xs text-muted-foreground">Engine</div>
+                      <div className="text-sm font-bold text-accent">
+                        {model.hyperparameter_tuning.engine || 'NoCodeML Rules Engine'}
                       </div>
                       <div className="text-xs text-muted-foreground mt-1">
-                        Best: Trial #{model.hyperparameter_tuning.best_trial}
+                        {model.hyperparameter_tuning.method}
                       </div>
                     </div>
 
                     <div className="p-3 bg-card/50 backdrop-blur-sm rounded-lg border border-border hover:border-primary-blue/50 transition-colors">
-                      <div className="text-xs text-muted-foreground">CV Score ({model.hyperparameter_tuning.cv_folds}-Fold)</div>
+                      <div className="text-xs text-muted-foreground">Rules Evaluated</div>
                       <div className="text-lg font-bold text-primary-blue">
-                        {model.hyperparameter_tuning.cv_score?.toFixed(4)}
+                        {model.hyperparameter_tuning.rules_evaluated ?? model.hyperparameter_tuning.applied_rules?.length ?? 0}
                       </div>
-                      <div className="text-xs text-success mt-1">
-                        {model.hyperparameter_tuning.improvement_vs_default} vs default
+                      <div className="text-xs text-muted-foreground mt-1">
+                        {model.hyperparameter_tuning.cv_strategy}
                       </div>
                     </div>
 
                     <div className="p-3 bg-card/50 backdrop-blur-sm rounded-lg border border-border hover:border-success/50 transition-colors">
-                      <div className="text-xs text-muted-foreground">Test Score</div>
+                      <div className="text-xs text-muted-foreground">Final Configuration</div>
                       <div className="text-lg font-bold text-success">
                         {model.hyperparameter_tuning.test_score?.toFixed(4)}
                       </div>
                       <div className="text-xs text-muted-foreground mt-1">
-                        Generalization: {((model.hyperparameter_tuning.test_score / model.hyperparameter_tuning.cv_score) * 100).toFixed(1)}%
+                        Test Score
                       </div>
                     </div>
 
                     <div className="p-3 bg-card/50 backdrop-blur-sm rounded-lg border border-border hover:border-warning/50 transition-colors">
-                      <div className="text-xs text-muted-foreground">Optimization Time</div>
+                      <div className="text-xs text-muted-foreground">Rules Applied</div>
                       <div className="text-lg font-bold text-warning">
-                        {model.hyperparameter_tuning.optimization_time_seconds?.toFixed(1)}s
+                        {model.hyperparameter_tuning.rules_applied ?? model.hyperparameter_tuning.applied_rules?.filter((r: any) => r.parameter !== '—').length ?? 0}
                       </div>
                       <div className="text-xs text-muted-foreground mt-1">
-                        Converged at trial {model.hyperparameter_tuning.convergence_trial}
+                        Parameter adjustments
                       </div>
                     </div>
                   </div>
 
-                  {/* Dataset Adjustments Applied */}
-                  {model.hyperparameter_tuning.dataset_adjustments_applied && (
-                    <div className="p-3 bg-primary-blue/10 rounded-lg border border-primary-blue/30">
-                      <div className="font-semibold text-sm mb-2 flex items-center gap-2 text-primary-blue">
-                        <Info className="w-4 h-4" />
-                        Dataset-Specific Adjustments
+                  {/* Reasoning Table — Step-by-Step Logic */}
+                  {model.hyperparameter_tuning.applied_rules && model.hyperparameter_tuning.applied_rules.length > 0 && (
+                    <div className="rounded-lg border border-border overflow-hidden">
+                      <div className="p-3 bg-primary-blue/10 border-b border-primary-blue/30">
+                        <div className="font-semibold text-sm flex items-center gap-2 text-primary-blue">
+                          <Info className="w-4 h-4" />
+                          Step-by-Step Reasoning — Why Each Parameter Was Changed
+                        </div>
                       </div>
-                      <ul className="space-y-1">
-                        {model.hyperparameter_tuning.dataset_adjustments_applied.map((adj: string, idx: number) => (
-                          <li key={idx} className="text-xs text-muted-foreground flex items-start gap-2">
-                            <span className="text-primary mt-0.5">✓</span>
-                            <span>{adj}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-
-                  {/* Optimization Convergence Chart */}
-                  {model.hyperparameter_tuning.trial_scores && (
-                    <div className="p-4 bg-card/50 backdrop-blur-sm rounded-lg border border-border">
-                      <div className="font-semibold text-sm mb-3 text-foreground">Optimization Progress</div>
-                      <div className="h-32 flex items-end gap-1">
-                        {model.hyperparameter_tuning.trial_scores.map((score: number, idx: number) => {
-                          const height = (score / Math.max(...model.hyperparameter_tuning.trial_scores)) * 100;
-                          const isBest = idx === model.hyperparameter_tuning.best_trial - 1;
-                          return (
-                            <div
-                              key={idx}
-                              className={`flex-1 rounded-t transition-all ${
-                                isBest 
-                                  ? 'bg-gradient-to-t from-primary via-accent to-primary-blue shadow-lg shadow-primary/30' 
-                                  : 'bg-gradient-to-t from-primary-blue/60 to-primary-blue/30'
-                              }`}
-                              style={{ height: `${height}%` }}
-                              title={`Trial ${idx + 1}: ${score.toFixed(4)}`}
-                            />
-                          );
-                        })}
-                      </div>
-                      <div className="flex justify-between mt-2 text-xs text-muted-foreground">
-                        <span>Trial 1</span>
-                        <span className="text-primary">Best at trial {model.hyperparameter_tuning.best_trial}</span>
-                        <span>Trial {model.hyperparameter_tuning.n_trials}</span>
-                      </div>
+                      <Table>
+                        <TableHeader>
+                          <TableRow className="bg-secondary/30">
+                            <TableHead className="w-[140px] text-xs font-semibold">Parameter</TableHead>
+                            <TableHead className="w-[90px] text-xs font-semibold text-center">Before</TableHead>
+                            <TableHead className="w-[90px] text-xs font-semibold text-center">After</TableHead>
+                            <TableHead className="text-xs font-semibold">The "Why" (Reasoning)</TableHead>
+                          </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                          {model.hyperparameter_tuning.applied_rules.map((rule: any, idx: number) => (
+                            <TableRow key={idx} className="hover:bg-accent/5 transition-colors">
+                              <TableCell className="font-mono text-xs font-semibold text-primary">
+                                {rule.parameter}
+                              </TableCell>
+                              <TableCell className="text-xs text-center text-muted-foreground">
+                                {typeof rule.original_value === 'object' ? JSON.stringify(rule.original_value) : String(rule.original_value)}
+                              </TableCell>
+                              <TableCell className="text-xs text-center font-semibold text-success">
+                                {typeof rule.value === 'object' ? JSON.stringify(rule.value) : String(rule.value)}
+                              </TableCell>
+                              <TableCell className="text-xs text-muted-foreground leading-relaxed">
+                                {rule.reason}
+                              </TableCell>
+                            </TableRow>
+                          ))}
+                        </TableBody>
+                      </Table>
                     </div>
                   )}
 
@@ -510,7 +507,7 @@ const ResultsStep: React.FC<ResultsStepProps> = ({ experimentId, onBack }) => {
                     <summary className="cursor-pointer text-sm font-semibold p-3 bg-secondary/50 backdrop-blur-sm rounded-lg hover:bg-secondary hover:border-primary/30 border border-border transition-all">
                       <span className="inline-flex items-center gap-2">
                         <span className="transform group-open:rotate-90 transition-transform text-primary">▶</span>
-                        <span className="text-foreground">View Optimized Hyperparameters</span>
+                        <span className="text-foreground">View Final Hyperparameters</span>
                       </span>
                     </summary>
                     <div className="mt-2 p-4 bg-secondary/50 backdrop-blur-sm rounded-lg border border-border">

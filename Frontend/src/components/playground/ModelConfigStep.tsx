@@ -563,10 +563,10 @@ const ModelConfigStep = ({ experiment, edaData, onNext, onBack }: ModelConfigSte
               </div>
               <div>
                 <CardTitle className="text-lg bg-gradient-to-r from-primary via-accent to-primary-blue bg-clip-text text-transparent">
-                  Automatic Hyperparameter Optimization
+                  Expert System Optimization
                 </CardTitle>
                 <CardDescription className="text-sm mt-1">
-                  AI-powered parameter tuning for optimal model performance
+                  Transparent, rule-based parameter tuning with full reasoning visibility
                 </CardDescription>
               </div>
             </div>
@@ -583,9 +583,9 @@ const ModelConfigStep = ({ experiment, edaData, onNext, onBack }: ModelConfigSte
             <Alert className="bg-gradient-to-r from-primary/10 via-accent/10 to-primary-blue/10 border-primary/30">
               <Info className="h-4 w-4 text-primary" />
               <AlertDescription className="text-sm">
-                <strong className="text-primary">Smart optimization enabled:</strong> Parameters will be automatically 
-                tuned based on your dataset characteristics to prevent overfitting and 
-                maximize generalization.
+                <strong className="text-primary">Expert System enabled:</strong> Parameters will be adjusted by our 
+                rules engine based on your dataset characteristics, with every decision 
+                explained transparently.
               </AlertDescription>
             </Alert>
 
@@ -622,9 +622,9 @@ const ModelConfigStep = ({ experiment, edaData, onNext, onBack }: ModelConfigSte
             </div>
 
             <div className="text-xs text-muted-foreground bg-secondary/50 backdrop-blur-sm p-3 rounded-lg border border-border">
-              <strong className="text-foreground">How it works:</strong> Our optimization engine uses Bayesian methods 
-              to intelligently search the hyperparameter space, applying dataset-specific 
-              adjustments to prevent overfitting while maximizing performance.
+              <strong className="text-foreground">How it works:</strong> Our transparent Expert System uses research-backed 
+              heuristic rules to analyze your dataset's characteristics (size, features, class balance) 
+              and adjusts each hyperparameter with a clear, step-by-step explanation of every decision made.
             </div>
           </CardContent>
         )}

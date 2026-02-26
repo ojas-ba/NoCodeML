@@ -29,22 +29,30 @@ export interface ExperimentConfig {
   selectedModels?: string[];
 }
 
+export interface AppliedRule {
+  parameter: string;
+  original_value: any;
+  value: any;
+  reason: string;
+}
+
+export interface DatasetInfo {
+  n_samples: number;
+  n_features: number;
+}
+
 export interface HyperparameterTuning {
   enabled: boolean;
   method: string;
-  optimizer: string;
-  n_trials: number;
+  engine: string;
+  rules_evaluated: number;
+  rules_applied: number;
   cv_folds: number;
   cv_strategy: string;
-  best_trial: number;
-  cv_score: number;
   test_score: number;
-  improvement_vs_default: string;
-  optimization_time_seconds: number;
-  convergence_trial: number;
-  trial_scores: number[];
+  applied_rules: AppliedRule[];
+  dataset_info: DatasetInfo;
   best_params: Record<string, any>;
-  dataset_adjustments_applied: string[];
 }
 
 export interface ExperimentResponse {
