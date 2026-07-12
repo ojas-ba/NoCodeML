@@ -1,7 +1,5 @@
 # NoCodeML Platform 🚀
 
-> **Hackathon Project** - A full-stack No-Code Machine Learning platform that democratizes AI/ML by enabling anyone to build, train, and deploy models through an intuitive web interface.
-
 ![Python](https://img.shields.io/badge/Python-3.11+-blue)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.100+-green)
 ![React](https://img.shields.io/badge/React-18-blue)
